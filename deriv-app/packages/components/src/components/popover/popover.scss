@@ -1,0 +1,53 @@
+.dc-popover {
+    &__target {
+        &__icon .info {
+            @extend %inline-icon.secondary;
+
+            &:hover {
+                @extend %inline-icon.white;
+            }
+        }
+        &__icon--disabled .info {
+            @extend %inline-icon.disabled;
+
+            &:hover {
+                @extend %inline-icon.disabled;
+            }
+        }
+        &__icon .counter {
+            color: var(--brand-red-coral);
+            font-size: 10px;
+            font-weight: bold;
+            line-height: 1.4em;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-65%);
+        }
+    }
+    &__bubble {
+        @include typeface(--small-center-normal-active, none);
+        cursor: help;
+        position: relative;
+        padding: 0.7em;
+        max-width: 280px;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: row;
+        background: var(--general-active);
+        color: var(--text-prominent);
+        z-index: 999;
+
+        &__icon {
+            flex-grow: 1;
+            margin-right: 0.7em;
+            padding-top: 3px;
+        }
+        &__text {
+            flex-grow: 2;
+            text-align: left;
+        }
+        &--error {
+            background-color: var(--status-danger);
+        }
+    }
+}

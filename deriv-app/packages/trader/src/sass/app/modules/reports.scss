@@ -1,0 +1,359 @@
+@import '../_common/base/index';
+@import '../_common/components/composite-calendar';
+@import '../_common/components/data-table';
+
+$side-padding: 1.2em;
+
+/** @define reports; weak */
+.reports {
+    margin: 16px;
+    box-shadow: 18px 8px 8px var(--shadow-menu);
+    border-radius: 4px;
+
+    &__meta {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px 16px;
+
+        &-description {
+            &--heading {
+                @include typeface(--title-left-bold-black, none);
+                color: var(--text-prominent);
+                line-height: 1.55;
+            }
+            &--paragraph {
+                @include typeface(--paragraph-left-normal-black, none);
+                color: var(--text-general);
+            }
+        }
+        &-filter {
+            position: relative;
+            display: flex;
+        }
+    }
+    &__inset_header {
+        box-shadow: inset 0 -1px 0 0 var(--general-section-1);
+        margin-bottom: 24px;
+    }
+    .unknown-icon {
+        margin-left: 8px;
+        fill: var(--text-general);
+        border-radius: $BORDER_RADIUS;
+    }
+}
+
+/** @define statement; weak */
+.statement {
+    height: 100%;
+
+    &__content {
+        width: 100%;
+        max-height: 100%;
+    }
+    /*
+        TABLE STYLES
+    */
+    &__table {
+        height: calc(100% - 42px);
+        flex: 1;
+    }
+    &__row {
+        /*                     icon   refId tr_time  transaction cred/debt  balance */
+        grid-template-columns: 0.8fr  1.2fr 1fr      0.8fr         1fr        1fr;
+
+        &--detail {
+            overflow: hidden;
+            max-height: 63px;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            justify-content: center;
+            background-color: var(--general-section-1);
+
+            &-text {
+                padding: 1.12em;
+            }
+        }
+        .date {
+            text-align: left;
+        }
+    }
+    .amount, .balance {
+        justify-content: flex-end;
+    }
+    .amount {
+        font-weight: bold;
+
+        &--profit {
+            color: var(--text-profit-success);
+        }
+        &--loss {
+            color: var(--text-loss-danger);
+        }
+    }
+    /*
+        MOBILE CARDS
+    */
+    &--card-view {
+        background: var(--general-main-2);
+        overflow: hidden;
+
+        .statement__filter {
+            padding: 0 $side-padding;
+            border-bottom: 1px solid var(--general-section-1);
+
+            &-content {
+                padding: 0;
+                margin: 0 auto;
+                max-width: 450px;
+                display: grid;
+                grid-template-columns: 1fr 3em 1fr;
+                text-align: center;
+
+                .datepicker__input-field {
+                    width: 100%;
+                }
+            }
+            &-label {
+                display: none;
+            }
+        }
+        .statement__content {
+            padding: 0;
+        }
+        .statement__card-list {
+            padding: 0 $side-padding;
+            height: 100%;
+        }
+    }
+}
+
+/** @define statement-card */
+.statement-card {
+    &__header {
+        font-size: 1em;
+        padding: 0.5em;
+        border-bottom: 1px solid var(--general-section-1);
+        display: flex;
+        justify-content: space-between;
+    }
+    /* postcss-bem-linter: ignore */
+    &__refid a {
+        color: $COLOR_SKY_BLUE;
+        text-decoration: none;
+    }
+    &__body {
+        padding: 0.5em;
+        font-size: 1.2em;
+    }
+    &__desc {
+        margin-bottom: 0.7em;
+    }
+    &__row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        font-weight: bold;
+    }
+    &__cell-text {
+        vertical-align: middle;
+    }
+    &__amount {
+        &--sell, &--deposit {
+            color: var(--text-profit-success);
+        }
+        &--buy, &--withdrawal {
+            color: var(--text-loss-danger);
+        }
+    }
+    &__icon {
+        display: inline-block;
+        height: 1.6em;
+        width: 1.6em;
+        background-size: 1.6em 1.6em;
+        vertical-align: middle;
+        margin-right: 0.5em;
+    }
+}
+
+/** @define statement-empty */
+.statement-empty {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__icon {
+        height: 6.4em;
+        width: 6.4em;
+        margin-bottom: 1.4em;
+    }
+    &__text {
+        font-size: 1.4em;
+    }
+}
+
+/** @define profit-table; weak */
+.profit-table {
+    height: 100%;
+
+    &__content {
+        width: 100%;
+        max-height: 100%;
+    }
+    /*
+        TABLE STYLES
+    */
+    &__table {
+        height: calc(100% - 42px);
+        flex: 1;
+    }
+    &__row {
+        /*                     icon   refId buy_time  buy_price sell_time  sell_price profit/loss */
+        grid-template-columns: 0.8fr  1.2fr 1fr       0.8fr     1fr        1fr        1fr;
+    }
+    .buy_price, .sell_price, .profit_loss {
+        justify-content: flex-end;
+    }
+    .sell_time, .purchase_time {
+        text-align: left;
+    }
+}
+
+/** @define open-positions; weak */
+.open-positions {
+    height: 100%;
+
+    &__content {
+        width: 100%;
+        max-height: 100%;
+    }
+    &__indicative {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        flex-direction: column;
+
+        &--amount {
+            display: flex;
+            align-items: center;
+            line-height: 16px;
+        }
+        &-no-resale-msg {
+            clear: both;
+            text-align: right;
+            font-size: smaller;
+        }
+    }
+    &__profit-loss {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &--movement {
+            width: 16px;
+            height: 16px;
+
+            &-complete, &-complete:after {
+                display: none;
+            }
+            &:after {
+                content: '';
+                width: 16px;
+            }
+        }
+        &--negative {
+            color: $COLOR_RED;
+
+            &:before {
+                content: '-';
+                color: inherit;
+            }
+        }
+        &--positive {
+            color: var(--brand-secondary);
+
+            &:before {
+                content: '+';
+                color: inherit;
+            }
+        }
+    }
+    /*
+        TABLE STYLES
+    */
+    &__table {
+        height: calc(100% - 42px);
+        flex: 1;
+    }
+    &__row {
+        /*                     icon   refId buy_price  potential_payout potential_profit  indicative_price rem_time */
+        grid-template-columns: 0.8fr  1.2fr 1fr        1fr            1fr               1fr              1fr;
+        width: 100%;
+    }
+    .buy_price, .payout, .indicative, .profit {
+        justify-content: flex-end;
+    }
+    .type {
+        padding-right: 0;
+    }
+    .progress-slider {
+        border: none;
+        margin: 0;
+
+        &__ticks {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &-step {
+                background: var(--state-hover);
+            }
+            &-wrapper {
+                margin-top: 6px;
+            }
+            &-caption {
+                padding: 0;
+                margin-right: 8px;
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+/** @define empty-trade-history; weak*/
+.empty-trade-history {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+
+    &__icon {
+        width: 96px;
+        height: 96px;
+        margin-bottom: 16px;
+        @include colorIcon(var(--text-disabled));
+    }
+    &__text {
+        font-size: em(14px);
+        text-align: center;
+        line-height: 20px;
+        color: var(--text-disabled);
+    }
+    .btn {
+        width: 100%;
+        height: 40px;
+        border: 1px solid var(--button-secondary-default);
+        color: var(--text-general);
+        background: transparent;
+
+        &:hover {
+            background: var(--button-secondary-hover);
+        }
+    }
+}

@@ -1,0 +1,77 @@
+/* @define .composite-calendar; weak; */
+.composite-calendar {
+    display: grid;
+    grid-template-columns: 128px minmax(min-content, 280px) minmax(min-content, 280px);
+    position: absolute;
+    top: 36px;
+    right: 0;
+    z-index: 99;
+    border-radius: $BORDER_RADIUS;
+    background-color: var(--general-main-2);
+    box-shadow: 0 2px 16px 8px var(--shadow-menu);
+
+    .composite-wrapper {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: var(--general-main-1);
+        z-index: 98;
+    }
+    &__input-fields {
+        display: flex;
+        border-radius: $BORDER_RADIUS;
+
+        & > .input-field {
+            margin: 0;
+            @include colorIcon(var(--text-prominent));
+
+            & .input {
+                height: 32px;
+                background-color: var(--fill-normal);
+                border: 1px solid var(--border-normal);
+
+                &:hover {
+                    border-color: var(--border-hover);
+                }
+                &:focus, &:active {
+                    border-color: var(--border-active);
+                }
+                &::placeholder {
+                    color: var(--text-general);
+                }
+            }
+
+        }
+        & > .input-field:not(:first-child) {
+            margin-left: 8px;
+        }
+    }
+    & > .first-month, & > .second-month {
+        .calendar__body {
+            border-bottom: none;
+        }
+    }
+    &__prepopulated-list {
+        padding-top: 50px;
+        @include typeface(--paragraph-center-normal-black);
+        color: var(--text-prominent);
+        background: var(--state-normal);
+
+        &--is-active {
+            color: var(--text-prominent);
+            background-color: var(--state-active);
+            font-weight: bold;
+        }
+        & li {
+            cursor: pointer;
+            padding: 6px 6px 6px 16px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+
+            &:hover:not(.composite-calendar__prepopulated-list--is-active) {
+                background: var(--state-hover);
+            }
+        }
+    }
+}
